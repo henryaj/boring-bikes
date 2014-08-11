@@ -17,8 +17,12 @@ describe Bike do
 		expect(bike).not_to be_broken
 	end
 
-	it "should have wings" do
+	it "should have wings if is a flying bike" do
 		bike.fly
 		expect(bike.has_wings?).to be true
+	end
+
+	it "should not be able to fly if not a flying bike" do
+		expect(bike.fly).to eq "You can't fly!"
 	end
 end
