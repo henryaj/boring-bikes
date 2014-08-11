@@ -8,5 +8,9 @@ class DockingStation
   def dock(bike)
     @bike_count += 1
   end
+
+  def release(bike)
+  	@bike_count -= 1
+  end
 end
 
