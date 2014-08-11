@@ -1,6 +1,7 @@
 class Bike
 	def initialize
 		fix!
+		@wings = 0
 	end
 
 	def broken?
@@ -21,14 +22,14 @@ class Bike
 	end
 
 	def is_flying?
-		@wings == true
+		@wings != 0
 	end
 
 	def has_wings?
-		true
+		@wings != 0
 	end
 
 	def can_fly?
-		"You can't fly!"
+		has_wings? == true ? "You can flyyyyy!" : "You can't fly!"
 	end
 end
