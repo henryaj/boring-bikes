@@ -1,6 +1,7 @@
 class Bike
 	def initialize
 		fix!
+		@docked = true
 	end
 
 	def broken?
@@ -28,6 +29,6 @@ class Bike
 	end
 
 	def is_docked?
-		"SLIIIIIIMED!"
+		@docked == true
 	end
 end

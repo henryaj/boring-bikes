@@ -39,7 +39,12 @@ describe Bike do
 		expect(bike.is_docked?).not_to eq nil
 	end
 
-	it" should either be docked or not" do
+	it "should either be docked or not" do
 		expect(bike.is_docked?).to be (true or false)
+	end
+
+	it "should report as undocked if not docked" do
+		bike.undock!
+		expect(bike.is_docked?).to be false
 	end
 end
