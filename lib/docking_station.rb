@@ -2,15 +2,19 @@ class DockingStation
   attr_reader :bike_count
 
   def initialize
-    @bike_count = 0
+    @bikes = []
   end
 
   def dock(bike)
-    @bike_count += 1
+    @bikes << bike
   end
 
   def release(bike)
-  	@bike_count -= 1
+  	@bikes.pop
+  end
+
+  def bike_count
+  	@bikes.count
   end
 end
 

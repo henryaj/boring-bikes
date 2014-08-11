@@ -17,4 +17,9 @@ describe DockingStation do
 		expect(station.bike_count).to eq (0)
 	end
 
+	it "should know when it's full" do
+		expect(station).not_to be_full
+		20.times { station.dock(:bike) }
+		expect(station).to be_full 
+	end
 end
