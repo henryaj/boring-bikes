@@ -18,20 +18,28 @@ describe Bike do
 	end
 
 	it "should have wings if is a flying bike" do
-		bike.fly
+		bike.make_it_fly!
 		expect(bike.has_wings?).to be true
 	end
 
+	it "should not have wings if it is not a flying bike" do
+		expect(bike.has_wings?).to be false
+	end
+
 	it "should not be able to fly if not a flying bike" do
-		expect(bike.can_fly?).to eq "You can't fly!"
+		expect(bike.can_fly?).to eq false
 	end
 
 	it "should be able to fly if it's a flying bike" do
-		bike.fly
-		expect(bike.can_fly?).to eq "You can flyyyyy!"
+		bike.make_it_fly!
+		expect(bike.can_fly?).to eq true
 	end
 
 	it "should know whether it is docked or not" do
 		expect(bike.is_docked?).not_to eq nil
+	end
+
+	it" should either be docked or not" do
+		expect(bike.is_docked?).to be (true or false)
 	end
 end

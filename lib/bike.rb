@@ -1,7 +1,6 @@
 class Bike
 	def initialize
 		fix!
-		@wings = 0
 	end
 
 	def broken?
@@ -16,20 +15,19 @@ class Bike
 		@broken = false
 	end
 
-	def fly
+	def make_it_fly!
 		@wings = 2
-		puts "Wheeeee!"
-	end
-
-	def is_flying?
-		@wings != 0
 	end
 
 	def has_wings?
-		@wings != 0
+		@wings != nil
 	end
 
 	def can_fly?
-		has_wings? == true ? "You can flyyyyy!" : "You can't fly!"
+		has_wings? == true
+	end
+
+	def is_docked?
+		"SLIIIIIIMED!"
 	end
 end
