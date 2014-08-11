@@ -30,4 +30,8 @@ describe Bike do
 		bike.fly
 		expect(bike.can_fly?).to eq "You can flyyyyy!"
 	end
+
+	it "should know whether it is docked or not" do
+		expect(bike.is_docked?).not_to eq nil
+	end
 end
