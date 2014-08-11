@@ -1,7 +1,9 @@
 class DockingStation
-  attr_reader :bike_count
 
-  def initialize
+	DEFAULT_CAPACITY = 10
+
+  def initialize(options = {})
+		@capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
     @bikes = []
   end
 
@@ -16,5 +18,9 @@ class DockingStation
   def bike_count
   	@bikes.count
   end
+
+	def full?
+		bike_count == @capacity
+	end
 end
 
