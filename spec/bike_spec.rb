@@ -25,4 +25,9 @@ describe Bike do
 	it "should not be able to fly if not a flying bike" do
 		expect(bike.can_fly?).to eq "You can't fly!"
 	end
+
+	it "should be able to fly if it's a flying bike" do
+		bike.fly
+		expect(bike.can_fly?).to eq "You can flyyyyy!"
+	end
 end
