@@ -31,4 +31,8 @@ class Bike
 	def is_docked?
 		@docked == true
 	end
+
+	def undock!
+		@docked = false
+	end
 end

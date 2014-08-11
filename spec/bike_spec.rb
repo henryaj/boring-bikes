@@ -47,4 +47,10 @@ describe Bike do
 		bike.undock!
 		expect(bike.is_docked?).to be false
 	end
+
+	it "should be able to dock undocked biked" do
+		bike.undock!
+		bike.dock!
+		expect(bike.is_docked?).to be true
+	end
 end
