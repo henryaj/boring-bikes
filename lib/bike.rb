@@ -14,4 +14,17 @@ class Bike
 	def fix!
 		@broken = false
 	end
+
+	def fly
+		@wings = 2
+		puts "Wheeeee!"
+	end
+
+	def is_flying?
+		@wings == true
+	end
+
+	def has_wings?
+		true
+	end
 end
