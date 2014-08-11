@@ -23,6 +23,6 @@ describe Bike do
 	end
 
 	it "should not be able to fly if not a flying bike" do
-		expect(bike.fly).to eq "You can't fly!"
+		expect(bike.can_fly?).to eq "You can't fly!"
 	end
 end

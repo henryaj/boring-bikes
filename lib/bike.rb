@@ -27,4 +27,8 @@ class Bike
 	def has_wings?
 		true
 	end
+
+	def can_fly?
+		"You can't fly!"
+	end
 end
