@@ -14,6 +14,14 @@ describe Van do
 		it "should have the capacity that it was set with" do
 			expect(van.capacity).to eq(25)
 		end
+
+		it "should not be able to access the 'dock' method directly" do
+			expect{ van.dock(super_velo) }.to raise_error (NoMethodError)
+		end
+
+		it "should be able to access the 'dock' method indirectly" do
+			expect( van.send(:dock, super_velo) ).to eq [super_velo]
+		end
 	end
 
 	context "travelling around" do
@@ -35,7 +43,7 @@ describe Van do
 
 		it "should be able to drop off a bike" do
 			van.go_to(west_brompton)
-			van.dock(super_velo)
+			van.send(:dock, super_velo)
 			van.drop_bike
 			expect(west_brompton.bikes[0]).to be super_velo
 		end
@@ -45,7 +53,7 @@ describe Van do
 
 		it "should only drop broken bikes" do
 			van.go_to(black_horse_road)
-			van.dock(super_velo)
+			van.send(:dock, super_velo)
 			expect { van.drop_bike }.to raise_error(StandardError, "Garage can only accept broken bikes")
 		end
 	end

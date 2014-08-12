@@ -22,4 +22,9 @@ class Van
 		@location.class == DockingStation ? @location.dock(bikes.pop) : raise(StandardError, "Garage can only accept broken bikes")
 	end
 
+	private
+
+	def dock(bike)
+		super
+	end
 end
