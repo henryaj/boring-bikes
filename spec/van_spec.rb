@@ -14,13 +14,7 @@ describe Van do
 		end
 	end
 
-	context "travelling around" do
-		it "should be able to go to a docking station" do
-			van.go_to(station)
-			expect(van.location).to eq station
-		end
-
-		it "should be at the docking staion it went to" do
+		it "should be at the docking staion it goes to" do
 			kings_cross = DockingStation.new
 			van.go_to(kings_cross)
 			expect(van.location).to be kings_cross
@@ -30,13 +24,12 @@ describe Van do
 	context "picking up and dropping bikes off" do
 
 		it "should be able to tell a docking station to give it bikes" do
-			1.times { station.dock(bike) }
-			van.go_to(station)
-			van.dock(station.release)
-			expect(van.bikes.count).to eq(1)
+			west_brompton = DockingSation.new
+			super_velo = Bike.new
+			west_brompton.dock(super_velo)
+			van.go_to(west_brompton)
+			van.get_bikes
+			expect(van.bikes[0]).to be super_velo
 		end
 
 	end
-
-
-end
