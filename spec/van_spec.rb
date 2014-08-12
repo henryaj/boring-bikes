@@ -13,7 +13,7 @@ describe Van do
 			expect(van.capacity).to eq(25)
 		end
 	end
-	
+
 	context "travelling around" do
 
 		it "should be at the docking station it goes to" do
@@ -43,5 +43,13 @@ describe Van do
 			expect(south_kensington.bikes[0]).to be raleigh
 		end
 	end
+
+		it "should only be able to pick up an object of class Bike" do
+			regent_street = DockingStation.new
+			im_no_bike = 256
+			regent_street.dock(im_no_bike)
+			van.go_to(regent_street)
+			expect(van.get_bikes).to raise_error(TypeError)
+		end
 
 end
