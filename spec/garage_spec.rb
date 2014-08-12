@@ -3,6 +3,7 @@ require 'garage'
 describe Garage do
 	let(:bike) {Bike.new}
 	let(:garage) {Garage.new(:capacity => 12345)}
+	let(:van) {Van.new}
 
 
 	it "should fix a bike when it accepts a bike" do
@@ -13,11 +14,6 @@ describe Garage do
 
 	it "should have the capacity it is initialized with" do
 		expect(garage.capacity).to eq 12345
-	end
-
-	it "should not be able to return a broken bike to a dock" do
-		bike.break!
-		garage.accept(bike)
 	end
 
 end

@@ -6,6 +6,7 @@ describe Van do
 	let(:van) { Van.new(:capacity => 25) }
 	let(:station) { DockingStation.new }
 	let(:bike) { Bike.new }
+	let(:garage) { Garage.new }
 
 	context "intitialization tests" do
 
@@ -41,6 +42,9 @@ describe Van do
 			van.go_to(south_kensington)
 			van.release
 			expect(south_kensington.bikes[0]).to be raleigh
+		end
+
+		xit "should release only broken bikes to a garage" do
 		end
 	end
 end
