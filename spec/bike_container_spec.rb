@@ -48,4 +48,8 @@ describe BikeContainer do
 		holder.dock(broken_bike)
 		expect(holder.available_bikes). to eq([working_bike])
 	end
+
+	it "should only be able to pick up an object of class Bike" do
+		expect { holder.dock(256) }.to raise_error(TypeError)
+	end
 end

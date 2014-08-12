@@ -19,6 +19,7 @@ module BikeContainer
   end
 
   def dock(bike)
+    raise TypeError, "Only bikes are accepted" if bike.class != Bike
     raise "Station is full" if full?
     bikes << bike
   end
