@@ -15,4 +15,9 @@ describe Garage do
 		expect(garage.capacity).to eq 12345
 	end
 
+	it "should not be able to return a broken bike to a dock" do
+		bike.break!
+		garage.accept(bike)
+	end
+
 end
