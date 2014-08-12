@@ -39,7 +39,7 @@ describe Van do
 			raleigh = Bike.new
 			van.dock(raleigh)
 			van.go_to(south_kensington)
-			van.release(raleigh)
+			van.release
 			expect(south_kensington.bikes[0]).to be raleigh
 		end
 	end

@@ -15,8 +15,11 @@ class Van
 	end
 
 	def get_bikes
-		bike = @location.release
-		dock(bike)
+		dock(@location.release)
+	end
+
+	def release
+		@location.dock(bikes.pop)
 	end
 
 end
