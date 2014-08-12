@@ -1,49 +1,52 @@
 require 'van'
 require 'docking_station'
 require 'bike'
+require 'garage'
 
 describe Van do
 	let(:van) { Van.new(:capacity => 25) }
-	let(:station) { DockingStation.new }
-	let(:bike) { Bike.new }
-	let(:garage) { Garage.new }
+	west_brompton = DockingStation.new
+	super_velo = Bike.new
+	black_horse_road = Garage.new
 
-	context "intitialization tests" do
+	context "when initialized" do
 
-		it "it has the capacity it is initialized with" do
+		it "should have the capacity that it was set with" do
 			expect(van.capacity).to eq(25)
 		end
 	end
 
 	context "travelling around" do
 
-		it "should be at the docking station it goes to" do
-			kings_cross = DockingStation.new
-			van.go_to(kings_cross)
-			expect(van.location).to be kings_cross
+		it "should end up at the docking station was sent to" do
+			van.go_to(west_brompton)
+			expect(van.location).to be west_brompton
 		end
 	end
 
-	context "picking up and dropping bikes off" do
-			west_brompton = DockingStation.new
-			super_velo = Bike.new
-			van.go_to(west_brompton)
+	context "at a docking station" do
 
-		it "should be able to tell a docking station to give it bikes" do
+		it "should be able to tell the docking station to give it bikes" do
+			van.go_to(west_brompton)
 			west_brompton.dock(super_velo)
 			van.get_bikes
 			expect(van.bikes[0]).to be super_velo
 		end
 
-		it "should be able to drop off a bike at a docking station" do
+		it "should be able to drop off a bike" do
+			van.go_to(west_brompton)
 			van.dock(super_velo)
 			van.drop_bike
-			expect(south_kensington.bikes[0]).to be super_velo
+			expect(west_brompton.bikes[0]).to be super_velo
 		end
+	end
 
-		it "should only drop broken bikes to a garage" do
+	context "at a garage" do
+
+		it "should only drop broken bikes" do
+			van.go_to(black_horse_road)
 			van.dock(super_velo)
-			expect { van.drop_bike(garage) }.to raise_error(StandardError, "Garage can only accept broken bikes")
+			expect { van.drop_bike }.to raise_error(StandardError, "Garage can only accept broken bikes")
 		end
 	end
 end

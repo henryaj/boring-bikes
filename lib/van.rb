@@ -18,8 +18,8 @@ class Van
 		dock(@location.release)
 	end
 
-	def drop_bikes
-		@location.dock(bikes.pop)
+	def drop_bike
+		@location.class == DockingStation ? @location.dock(bikes.pop) : raise(StandardError, "Garage can only accept broken bikes")
 	end
 
 end
