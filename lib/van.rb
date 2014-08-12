@@ -14,4 +14,9 @@ class Van
 		 @location = location
 	end
 
+	def get_bikes
+		bike = @location.release
+		dock(bike)
+	end
+
 end
