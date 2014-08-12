@@ -18,7 +18,7 @@ class Van
 		dock(@location.release)
 	end
 
-	def release
+	def drop_bikes
 		@location.dock(bikes.pop)
 	end
 

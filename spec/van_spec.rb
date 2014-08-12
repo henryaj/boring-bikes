@@ -25,26 +25,25 @@ describe Van do
 	end
 
 	context "picking up and dropping bikes off" do
-
-		it "should be able to tell a docking station to give it bikes" do
 			west_brompton = DockingStation.new
 			super_velo = Bike.new
-			west_brompton.dock(super_velo)
 			van.go_to(west_brompton)
+
+		it "should be able to tell a docking station to give it bikes" do
+			west_brompton.dock(super_velo)
 			van.get_bikes
 			expect(van.bikes[0]).to be super_velo
 		end
 
 		it "should be able to drop off a bike at a docking station" do
-			south_kensington = DockingStation.new
-			raleigh = Bike.new
-			van.dock(raleigh)
-			van.go_to(south_kensington)
-			van.release
-			expect(south_kensington.bikes[0]).to be raleigh
+			van.dock(super_velo)
+			van.drop_bike
+			expect(south_kensington.bikes[0]).to be super_velo
 		end
 
-		xit "should release only broken bikes to a garage" do
+		it "should only drop broken bikes to a garage" do
+			van.dock(super_velo)
+			expect { van.drop_bike(garage) }.to raise_error(StandardError, "Garage can only accept broken bikes")
 		end
 	end
 end
