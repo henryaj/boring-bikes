@@ -1,17 +1,15 @@
 require_relative 'bike_container'
+require_relative 'travelling'
 
 class Van
 
 	include BikeContainer
+	include Travelling
 
 	attr_reader :location
 
 	def initialize(options = {})
 		self.capacity = options.fetch(:capacity, capacity)
-	end
-
-	def go_to(location)
-		 @location = location
 	end
 
 	def get_bikes
