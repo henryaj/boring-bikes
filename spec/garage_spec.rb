@@ -1,6 +1,7 @@
 require 'garage'
 
 describe Garage do
+	it_should_behave_like "a bike container"
 	let(:bike) {Bike.new}
 	let(:garage) {Garage.new(:capacity => 12345)}
 	let(:van) {Van.new}

@@ -4,6 +4,8 @@ require 'bike'
 require 'garage'
 
 describe Van do
+	it_should_behave_like "a bike container"
+
 	let(:van) { Van.new(:capacity => 25) }
 	west_brompton = DockingStation.new
 	super_velo = Bike.new
