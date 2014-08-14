@@ -4,12 +4,17 @@ require 'van'
 describe 'a van' do
 
 	let (:van) { Van.new }
+	let (:twenty_bike_van) { Van.new(20)}
 	let (:van_withbike) {bob = Van.new; bob.receive(bike); bob}
 	let (:bike) { double :bike }
 	let (:super_velo) {double :bike}
 	let (:south_kensington) {double :station}
 
-	context 'when it is initialized' do
+	def fill_van(van)
+		van.capacity.times {van.receive(bike)}
+	end
+
+	context 'when it is initialized with no settings' do
 
 		it 'has no bikes' do
 			expect(van.has_bikes?).to eq false
@@ -23,7 +28,25 @@ describe 'a van' do
 			expect(van.location).to be nil
 		end
 
+		it 'has the default capacity' do
+			expect(van.capacity).to eq (10)
+		end
+
+		it 'can not receive bikes when at capacity' do
+			fill_van(van)
+			expect{van.receive(bike)}.to raise_error	
+		end
+		
 	end
+
+	context 'when initialized with a set capacity' do
+
+		it 'has that set capacity' do
+			expect(twenty_bike_van.capacity).to eq (20)
+		end
+
+	end
+
 
 	context 'with a bike' do
 
@@ -44,6 +67,7 @@ describe 'a van' do
 			van_withbike.receive(super_velo)
 			expect(van_withbike.return(super_velo)).to be super_velo
 		end
+
 	end
 
 	context 'when driving around' do
@@ -54,4 +78,6 @@ describe 'a van' do
 		end
 
 	end
+
+
 end
