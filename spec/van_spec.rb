@@ -4,8 +4,6 @@ require 'van'
 describe 'a van' do
 
 	let (:van) { Van.new }
-	let (:twenty_bike_van) { Van.new(20)}
-	let (:van_withbike) {bob = Van.new; bob.receive(bike); bob}
 	let (:bike) { double :bike }
 	let (:super_velo) {double :bike}
 	let (:south_kensington) {double :station}
@@ -21,7 +19,8 @@ describe 'a van' do
 		end
 
 		it 'can receive a bike' do
-			expect(van_withbike.has_bikes?).to eq true
+			van.receive(bike)
+			expect(van.has_bikes?).to eq true
 		end
 
 		it 'is not at a location' do
@@ -41,8 +40,10 @@ describe 'a van' do
 
 	context 'when initialized with a set capacity' do
 
+		let (:van) { Van.new(20)}
+
 		it 'has that set capacity' do
-			expect(twenty_bike_van.capacity).to eq (20)
+			expect(van.capacity).to eq (20)
 		end
 
 	end
@@ -50,22 +51,25 @@ describe 'a van' do
 
 	context 'with a bike' do
 
+
+		let (:van) {bob = Van.new; bob.receive(bike); bob}
+
 		it 'can count how many bikes it has' do
-			expect(van_withbike.bikes_count).to eq (1)
+			expect(van.bikes_count).to eq (1)
 		end
 
 		it 'can return a bike' do
-			expect(van_withbike.return(bike)).to eq bike
+			expect(van.return(bike)).to eq bike
 		end
 
 		it 'knows it has one fewer bike after returning one' do
-			van_withbike.return(bike)
-			expect(van_withbike.bikes_count).to eq(0)
+			van.return(bike)
+			expect(van.bikes_count).to eq(0)
 		end
 
 		it 'returns the bike that was requested' do
-			van_withbike.receive(super_velo)
-			expect(van_withbike.return(super_velo)).to be super_velo
+			van.receive(super_velo)
+			expect(van.return(super_velo)).to be super_velo
 		end
 
 	end
@@ -79,5 +83,31 @@ describe 'a van' do
 
 	end
 
+	context ',when at a station' do
+
+		context 'that has no bikes,' do
+
+			let (:station_without_bikes) { double :station, :release => raise }
+
+			it 'should not be able to collect a bike' do
+				van.drive_to(station_without_bikes)
+				expect{van.receive(location.release)}.to raise_error	
+			end
+		end
+
+		context 'that has bikes,' do
+
+			let (:station_with_bikes) { double :station, :release => bike }
+			let (:broken_bike) { double :bike, :working? => false }
+			let (:working_bike) { double :bike, :working? => true }
+
+			xit 'can only pick up a working bike' do
+
+			end
+
+			xit 'cannot pick up a broken bike' do
+			end
+		end
+	end
 
 end
