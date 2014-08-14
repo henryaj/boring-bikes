@@ -1,19 +1,21 @@
 require 'bike'
 
-describe Bike do
-	let(:bike) {Bike.new}
-	it "should not be broken after we create it" do
-		expect(bike).not_to be_broken
+describe 'a bike' do
+
+	let (:bike) { Bike.new }
+
+	it 'starts off not broken' do
+		expect(bike.working?).to be true
 	end
 
-	it "should be able to break" do
+	it 'can be broken' do
 		bike.break!
-		expect(bike).to be_broken
+		expect(bike.working?).to be false
 	end
 
-	it "should be able to get fixed" do
+	it 'can be fixed' do
 		bike.break!
 		bike.fix!
-		expect(bike).not_to be_broken
+		expect(bike.working?).to be true
 	end
 end
