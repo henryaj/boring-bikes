@@ -4,6 +4,7 @@ require 'van'
 describe 'a van' do
 
 let (:van) { Van.new }
+let (:van_withbike) {bob = Van.new; bob.receive(bike); bob}
 let (:bike) { double :bike }
 
 	it 'starts with no bikes' do
@@ -11,19 +12,20 @@ let (:bike) { double :bike }
 	end
 
 	it 'can receive a bike' do
-		van.receive(bike)
-		expect(van.has_bikes?).to eq true
+		expect(van_withbike.has_bikes?).to eq true
 	end
 
 	it 'can count how many bikes it has' do
-		van.receive(bike)
-		van.receive(bike)
-		expect(van.bikes_count).to eq (2)
+		expect(van_withbike.bikes_count).to eq (1)
 	end
 
 	it 'can return a bike' do
-		van.receive(bike)
-		expect(van.return(bike)).to eq bike
+		expect(van_withbike.return(bike)).to eq bike
+	end
+
+	it 'knows it has one fewer bike after returning one' do
+		van_withbike.return(bike)
+		expect(van_withbike.bikes_count).to eq(0)
 	end
 
 end
