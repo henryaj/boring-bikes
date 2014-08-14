@@ -1,7 +1,10 @@
 class Van
-	
+
+	attr_reader :location
+
 	def initialize
 		@bikes = []
+		@location = nil
 	end
 
 	def has_bikes?
@@ -19,7 +22,11 @@ class Van
 	end
 
 	def return(bike)
-		bike
+		@bikes.delete(bike)
 	end
-	
+
+	def drive_to(station)
+		@location = station
+	end
+
 end
