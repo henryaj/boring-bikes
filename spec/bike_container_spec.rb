@@ -42,7 +42,7 @@ shared_examples "a bike container" do
 		expect(holder.available_bikes). to eq([working_bike])
 	end
 
-	it "should only be able to pick up an object of class Bike" do
+	it "should only be able to dock a Bike" do
 		expect {holder.send(:dock, 256)}.to raise_error(TypeError)
 	end
 end
