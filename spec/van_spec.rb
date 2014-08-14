@@ -1,7 +1,7 @@
 require 'van'
 
 
-describe Van do
+describe 'a van' do
 
 let (:van) { Van.new }
 let (:bike) { double :bike }
@@ -20,4 +20,10 @@ let (:bike) { double :bike }
 		van.receive(bike)
 		expect(van.bikes_count).to eq (2)
 	end
+
+	it 'can return a bike' do
+		van.receive(bike)
+		expect(van.return(bike)).to eq bike
+	end
+
 end
