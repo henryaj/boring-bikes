@@ -10,12 +10,7 @@ class Garage
 
 	def accept(bike)
 		self.dock(bike)
-		fix_bikes
-	end
-
-	def fix_bikes
-		bikes
-		@bikes.each {|bike| bike.fix! }	
+		bike.fix!
 	end
 
 end
