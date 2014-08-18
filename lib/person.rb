@@ -13,7 +13,11 @@ class Person
     self
   end
 
-  def return_bike(docking_station)
+	def rent_bike_from docking_station
+		self
+	end
+
+  def return_bike_to docking_station
     self
   end
 end

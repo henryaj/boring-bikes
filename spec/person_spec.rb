@@ -25,13 +25,19 @@ describe 'a person' do
 
   it 'can rent a bike from a docking station' do
     docking_station = double :docking_station
-    expect(person.rent_bike(docking_station)).to eq person_with_bike
+    expect(person.rent_bike_from(docking_station)).to eq person
   end
 
 	it 'can return a bike to a docking station' do
 		docking_station = double :docking_station
-		expect(person_with_bike.return_bike(docking_station)).to eq person_with_bike
+		expect(person_with_bike.return_bike_to(docking_station)).to eq person_with_bike
 	end
 
- 
+	it 'has a bike when it rents a bike' do
+		docking_station = double :docking_station, release_bike: bike
+		person.rent_bike_from(docking_station)
+		expect(person.has_bike?).to eq true
+	end
+
+
 end
