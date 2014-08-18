@@ -14,6 +14,7 @@ class Person
   end
 
 	def rent_bike_from docking_station
+    @bike = docking_station.release_bike
 		self
 	end
 
