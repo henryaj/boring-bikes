@@ -12,4 +12,9 @@ class Bike
 	def working?
     @working
 	end
+
+	def fix!
+		@working = true
+		self
+	end
 end
