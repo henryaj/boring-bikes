@@ -13,4 +13,7 @@ class Person
     self
   end
 
+  def return_bike(docking_station)
+    self
+  end
 end
