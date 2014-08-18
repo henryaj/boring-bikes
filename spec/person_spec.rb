@@ -5,7 +5,7 @@ describe 'a person' do
   let(:bike)             { double :bike, break!: :bike                 }
   let(:person)           { Person.new                                  }
   let(:person_with_bike) { Person.new(bike)                            }
-  let(:docking_station)  { double :docking_station, release_bike: bike }
+  let(:docking_station)  { double :docking_station, release_bike: bike, dock_bike: nil }
 
 	it 'starts off without a bike' do
 		expect(person.has_bike?).to eq false
