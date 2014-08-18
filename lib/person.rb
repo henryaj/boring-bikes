@@ -8,4 +8,7 @@ class Person
 		not @bike.nil?
 	end
 
+  def has_accident!
+    self
+  end
 end
