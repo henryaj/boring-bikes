@@ -33,7 +33,7 @@ describe 'a person' do
 	end
 
 	it 'has a bike when it rents a bike' do
-  person.rent_bike_from(docking_station)
+	  person.rent_bike_from(docking_station)
 		expect(person.has_bike?).to eq true
 	end
 
@@ -41,5 +41,10 @@ describe 'a person' do
     person_with_bike.return_bike_to(docking_station)
     expect(person_with_bike.has_bike?).to eq false
   end
+
+	it 'gives the bike back to the docking station do deal with when returning it' do
+		expect(docking_station).to receive(:dock_bike).with(bike)
+		person_with_bike.return_bike_to(docking_station)
+	end
 
 end

@@ -19,6 +19,7 @@ class Person
 	end
 
   def return_bike_to docking_station
+		@bike = nil
     self
   end
 end
