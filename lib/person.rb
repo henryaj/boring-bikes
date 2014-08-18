@@ -9,6 +9,8 @@ class Person
 	end
 
   def has_accident!
+		@bike.break!
     self
   end
+
 end

@@ -11,18 +11,19 @@ describe 'a person' do
 	end
 
   it 'can have a bike' do
-    person_with_bike
-    expect(person.has_bike?).to be true
+    expect(person_with_bike.has_bike?).to be true
   end
 
 	it 'can have a horrible accident' do
-    person_with_bike
-    expect(person.has_accident!).to eq person
+    expect(person_with_bike.has_accident!).to eq person_with_bike
 	end
 
   it 'can break a bike when it has an accident' do
-    person_with_bike
-    expect(:bike).to receive(:break!)
-    person.has_accident!
+    expect(bike).to receive(:break!)
+    person_with_bike.has_accident!
   end
+
+	it 'can return a bike to a docking station' do
+		expect(person_with_bike.return_bike(docking_station)).to eq person_with_bike
+	end
 end
