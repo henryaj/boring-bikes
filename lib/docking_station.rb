@@ -16,4 +16,7 @@ class DockingStation
 		@bikes.pop
 	end
 
+  def available?
+   false
+  end
 end
