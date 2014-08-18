@@ -1,10 +1,19 @@
 class DockingStation
 
-  def dock(bike)
+	def initialize
+		@bikes = []
+	end
 
-  end
+	def has_bikes?
+		not @bikes.empty?
+	end
 
-   def has_bikes?
-    true
-   end
+	def dock_bike(bike)
+		@bikes << bike
+	end
+
+	def release_bike
+		@bikes.pop
+	end
+
 end
