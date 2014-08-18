@@ -5,7 +5,7 @@ class DockingStation
 	end
 
 	def has_bikes?
-		not @bikes.empty?
+		@bikes.any?
 	end
 
 	def dock_bike(bike)
@@ -16,7 +16,8 @@ class DockingStation
 		@bikes.pop
 	end
 
-  def available?
-   false
-  end
+	def available?
+		@bikes.any?(&:working?)
+	end
+
 end

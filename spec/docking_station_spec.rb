@@ -6,6 +6,7 @@ describe "a docking station" do
 	let(:bike)            { double :bike                  }
 	let(:broken_bike)     { double :bike, working?: false }
   let(:working_bike)    { double :bike, working?: true  }
+
 	it "can dock a bike" do
 		docking_station.dock_bike(bike)
 		expect(docking_station.has_bikes?).to be true
@@ -16,7 +17,7 @@ describe "a docking station" do
     expect(docking_station.release_bike).to be bike
   end
 
-	it 'knows if it has got available bikes (like, working ones)' do
+	it 'knows if it has got available bikes (like, not broken)' do
 		docking_station.dock_bike(broken_bike)
 		expect(docking_station.available?).to be false
 	end
@@ -26,4 +27,9 @@ describe "a docking station" do
     docking_station.dock_bike(working_bike)
     expect(docking_station.available?).to be true
   end
+
+	xit 'will not release a broken bike by default' do
+
+	end
+
 end
