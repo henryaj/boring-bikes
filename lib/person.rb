@@ -1,6 +1,11 @@
 class Person
 
-    def has_bike?
-      false
-    end
+	def initialize(bike=nil)
+		@bike = bike
+	end
+
+	def has_bike?
+		not @bike.nil?
+	end
+
 end
