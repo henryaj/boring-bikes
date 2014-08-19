@@ -1,4 +1,8 @@
+require 'bike_container'
+
 class Van
+	include BikeContainer
+
 	def initialize
 		@bikes = []
 	end

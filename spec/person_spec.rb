@@ -42,7 +42,7 @@ describe 'a person' do
     expect(person_with_bike.has_bike?).to eq false
   end
 
-	it 'gives the bike back to the docking station do deal with when returning it' do
+	it 'gives the bike back to the docking station to deal with when returning it' do
 		expect(docking_station).to receive(:dock_bike).with(bike)
 		person_with_bike.return_bike_to(docking_station)
 	end
