@@ -1,8 +1,9 @@
+require 'timecop'
 require 'person'
 
 describe 'a person' do
 
-  let(:bike)             { double :bike, break!: :bike, set_time_bike_was_hired: Time.local(1990, 3, 12, 14, 0, 0)}
+	let(:bike)             { double :bike, break!: :bike, set_time_bike_was_hired: Time.now, time_bike_was_hired: Time.local(1990, 3, 12, 14, 0, 0)}
   let(:person)           { Person.new                                                  }
   let(:person_with_bike) { Person.new(bike)                                            }
   let(:docking_station)  { double :docking_station, release_bike: bike, dock_bike: nil }
@@ -52,11 +53,11 @@ describe 'a person' do
 		person.rent_bike_from(docking_station)
 	end
 
-  it 'should know how long it was hired for when returning a bike' do 
+  it 'should know how long it was hired for when returning a bike' do
     t = Time.local(1990, 3, 12, 14, 30, 0 )
     Timecop.freeze(t)
-    person.return_bike_to(docking_station)
-    expect(person.hired_time).to eq(1800.00)
+    person_with_bike.return_bike_to(docking_station)
+    expect(person_with_bike.total_time_bike_hired).to eq(1800.00)
   end
 
 end
