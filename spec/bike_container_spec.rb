@@ -2,18 +2,24 @@ shared_examples 'a bike container' do
 
 
 	let ( :bike_container ) { described_class.new           }
-	let ( :broken_bike    ) { double :bike, working?: false, fix!: nil}
-	let ( :working_bike   ) { double :bike, working?: true, fix!: nil}
+	let ( :broken_bike    ) { double :broken_bike, working?: false, fix!: nil}
+	let ( :working_bike   ) { double :working_bike, working?: true, fix!: nil}
+
+	def add_broken_and_working_bike
+		bike_container.dock_bike(broken_bike)
+		bike_container.dock_bike(working_bike)
+	end
+
+	def add_broken_then_working_then_broken_bike
+		bike_container.dock_bike(broken_bike)
+		bike_container.dock_bike(working_bike)
+		bike_container.dock_bike(broken_bike)
+	end
 
 	it "can dock a bike" do
 		bike_container.dock_bike(working_bike)
 		expect(bike_container.has_bikes?).to be true
 	end
-
-  it 'can release a bike' do
-    bike_container.dock_bike(working_bike)
-    expect(bike_container.release_bike).to be working_bike
-  end
 
 	it 'knows if it has got available bikes (like, not broken)' do
 		bike_container.dock_bike(broken_bike)
@@ -21,30 +27,39 @@ shared_examples 'a bike container' do
 	end
 
   it 'knows that avaiable bikes are working ones' do
-    bike_container.dock_bike(broken_bike)
-    bike_container.dock_bike(working_bike)
-    expect(bike_container.available?).to be true
-  end
+		add_broken_and_working_bike
+		expect(bike_container.available?).to be true
+	end
 
-	it 'will only release a working bike' do
-    bike_container.dock_bike(working_bike)
-    bike_container.dock_bike(broken_bike)
-    expect(bike_container.release_bike).to be working_bike
+	it 'will release a broken bike' do
+		add_broken_and_working_bike
+    expect(bike_container.release_broken_bike).to be broken_bike
+	end
+
+	it 'will release a working bike' do
+		add_broken_and_working_bike
+    expect(bike_container.release_working_bike).to be working_bike
 	end
 
 	it 'will dump all its broken bikes when asked' do
-    bike_container.dock_bike(broken_bike)
-    bike_container.dock_bike(working_bike)
-    bike_container.dock_bike(broken_bike)
+		add_broken_then_working_then_broken_bike
 		expect(bike_container.dump_broken_bikes).to eq [broken_bike, broken_bike]
 	end
 
-	it 'will be able to dump working bikes when asked' do 
-		bike_container.dock_bike(working_bike)
-		bike_container.dock_bike(broken_bike)
-		bike_container.dock_bike(working_bike)
-		expect(bike_container.dump_working_bikes).to eq [working_bike, working_bike]
+	it 'will be able to dump working bikes when asked' do
+		add_broken_then_working_then_broken_bike
+		expect(bike_container.dump_working_bikes).to eq [working_bike]
 	end
 
+	it 'will only have broken bikes when working bikes are dumped' do
+		add_broken_then_working_then_broken_bike
+		bike_container.dump_working_bikes
+		expect(bike_container.available?).to be false
+	end
 
+	it 'will only have working bikes when broken bikes are dumped' do
+		add_broken_then_working_then_broken_bike
+		bike_container.dump_working_bikes
+		expect(bike_container.available?).to be true
+	end
 end
