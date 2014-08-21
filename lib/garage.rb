@@ -9,4 +9,8 @@ def receive_bikes_from(van)
 	nil
 end
 
+def fix!
+	@bikes.each {|bike| bike.fix!}
+end
+
 end

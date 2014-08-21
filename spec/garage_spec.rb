@@ -21,6 +21,11 @@ let(:working_bike) {double :bike, broken?: false}
 		garage.fix!
 	end
 
+	it 'fixes the bikes when they come in' do
+		expect(bike).to receive(:fix!)
+		garage.dock_bike(bike)
+	end
+
 
 
 
