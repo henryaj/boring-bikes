@@ -9,6 +9,7 @@ module BikeContainer
 	end
 
 	def dock_bike(bike)
+		raise(ArgumentError, "Can only dock bikes") unless bike.class == Bike
 		@bikes << bike
 	end
 
@@ -41,7 +42,7 @@ module BikeContainer
 	def dump_working_bikes
 		dumped_bikes = working_bikes
 		@bikes = @bikes - working_bikes
-		dumped_bikes 
+		dumped_bikes
 	end
 
 end

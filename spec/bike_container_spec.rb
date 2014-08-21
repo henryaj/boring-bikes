@@ -2,8 +2,8 @@ shared_examples 'a bike container' do
 
 
 	let ( :bike_container ) { described_class.new           }
-	let ( :broken_bike    ) { double :broken_bike, working?: false, fix!: nil}
-	let ( :working_bike   ) { double :working_bike, working?: true, fix!: nil}
+	let ( :broken_bike    ) { double :broken_bike, working?: false, fix!: nil, class: Bike}
+	let ( :working_bike   ) { double :working_bike, working?: true, fix!: nil, class: Bike}
 
 	def add_broken_and_working_bike
 		bike_container.dock_bike(broken_bike)
@@ -61,5 +61,9 @@ shared_examples 'a bike container' do
 		add_broken_then_working_then_broken_bike
 		bike_container.dump_broken_bikes
 		expect(bike_container.available?).to be true
+	end
+
+	it 'raises an error when a something that is not a bike is added' do
+		expect{bike_container.dock_bike(42)}.to raise_error(ArgumentError, "Can only dock bikes")
 	end
 end
