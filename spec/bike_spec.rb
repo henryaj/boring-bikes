@@ -1,9 +1,16 @@
 require 'bike'
+require 'timecop'
 
 describe 'a bike' do
-let(:bike) { Bike.new }
-let(:person) {double :person, rent_bike_from: nil}
-let(:docking_station) {double :docking_station}
+
+	before do
+		t = Time.local(1985, 10, 26, 1, 21, 0)
+		Timecop.freeze(t)
+	end
+
+	let(:bike) { Bike.new }
+	let(:person) {double :person, rent_bike_from: nil}
+	let(:docking_station) {double :docking_station}
 
 	it 'can be broken' do
 		expect(bike.break!).to eq bike
@@ -25,9 +32,19 @@ let(:docking_station) {double :docking_station}
 		expect(bike.break!.fix!.working?).to eq true
 	end
 
-	it "should know when it is taken out" do 
-		person.rent_bike_from(docking_station)
-		expect(bike.timestamp).not_to be nil
+	it "should be able to take a time stamp" do
+		bike.set_time_bike_was_hired
+		expect(bike.time_bike_was_hired).not_to be nil
+	end
+
+	it "keeps a record of the exact time it was hired" do
+		test_time  = Time.now
+		bike.set_time_bike_was_hired
+		expect(bike.time_bike_was_hired).to eq test_time
+	end
+
+	after do
+		Timecop.return
 	end
 
 end

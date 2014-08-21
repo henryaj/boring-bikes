@@ -1,6 +1,8 @@
 module BikeContainer
 
 	attr_accessor :bikes
+	attr_reader :time_bike_was_hired
+
 
 	def initialize
 		@bikes = []
@@ -46,5 +48,6 @@ module BikeContainer
 		@bikes = @bikes - working_bikes
 		dumped_bikes
 	end
+
 
 end

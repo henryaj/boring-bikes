@@ -1,5 +1,7 @@
 class Bike
 
+	attr_reader :time_bike_was_hired
+
   def initialize
     @working = true
   end
@@ -17,4 +19,11 @@ class Bike
 		@working = true
 		self
 	end
+
+	def set_time_bike_was_hired
+		@time_bike_was_hired = Time.now
+	end
+
+
+
 end
