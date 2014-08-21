@@ -1,9 +1,8 @@
 shared_examples 'a bike container' do
 
-
-	let ( :bike_container ) { described_class.new           }
-	let ( :broken_bike    ) { double :broken_bike, working?: false, fix!: nil, class: Bike}
-	let ( :working_bike   ) { double :working_bike, working?: true, fix!: nil, class: Bike}
+	let ( :bike_container )  { described_class.new                                          } 
+	let ( :broken_bike    )  { double :broken_bike, working?: false, fix!: nil, class: Bike } 
+	let ( :working_bike   )  { double :working_bike, working?: true, fix!: nil, class: Bike } 
 
 	def add_broken_and_working_bike
 		bike_container.dock_bike(broken_bike)
