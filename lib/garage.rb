@@ -5,7 +5,9 @@ class Garage
 	include BikeContainer
 
 def receive_bikes_from(van)
-	@bikes << van.dump_broken_bikes
+	
+	@bikes = @bikes + van.dump_broken_bikes
+	fix!
 	nil
 end
 

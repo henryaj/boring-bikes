@@ -4,9 +4,8 @@ describe Garage do
 
 let(:garage) {Garage.new}
 let(:van) {double :van, dump_broken_bikes: nil}
-let(:bike) {double :bike, class: Bike}
-let(:broken_bike) {double :bike}
-let(:working_bike) {double :bike, broken?: false}
+let(:bike) {double :bike, class: Bike, fix!: nil}
+
 
 	it_behaves_like 'a bike container'
 
@@ -22,11 +21,9 @@ let(:working_bike) {double :bike, broken?: false}
 	end
 
 	it 'fixes the bikes when they come in' do
-		expect(bike).to receive(:fix!)
-		garage.dock_bike(bike)
+		allow(van).to receive(:dump_broken_bikes).and_return([bike,bike,bike])
+		expect(bike).to receive(:fix!).exactly(3).times
+		garage.receive_bikes_from(van)
 	end
-
-
-
 
 end
