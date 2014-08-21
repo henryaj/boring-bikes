@@ -59,7 +59,7 @@ shared_examples 'a bike container' do
 
 	it 'will only have working bikes when broken bikes are dumped' do
 		add_broken_then_working_then_broken_bike
-		bike_container.dump_working_bikes
+		bike_container.dump_broken_bikes
 		expect(bike_container.available?).to be true
 	end
 end
