@@ -8,5 +8,4 @@ class Van
 	end
 
 
-
 end
