@@ -39,4 +39,12 @@ shared_examples 'a bike container' do
 		expect(bike_container.dump_broken_bikes).to eq [broken_bike, broken_bike]
 	end
 
+	it 'will be able to dump working bikes when asked' do 
+		bike_container.dock_bike(working_bike)
+		bike_container.dock_bike(broken_bike)
+		bike_container.dock_bike(working_bike)
+		expect(bike_container.dump_working_bikes).to eq [working_bike, working_bike]
+	end
+
+
 end

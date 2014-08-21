@@ -27,4 +27,10 @@ module BikeContainer
 		broken_bikes
 	end
 
+	def dump_working_bikes
+		working_bikes = @bikes.select(&:working?)
+		@bikes - working_bikes
+		working_bikes
+	end
+
 end
