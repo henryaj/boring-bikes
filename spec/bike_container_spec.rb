@@ -1,9 +1,9 @@
 shared_examples 'a bike container' do
 
-	let ( :bike_container ) { described_class.new           }
-	let ( :broken_bike    ) { double :bike, working?: false }
-	let ( :working_bike   ) { double :bike, working?: true  }
 
+	let ( :bike_container ) { described_class.new           }
+	let ( :broken_bike    ) { double :bike, working?: false, fix!: nil }
+	let ( :working_bike   ) { double :bike, working?: true , fix!: nil }
 	it "can dock a bike" do
 		bike_container.dock_bike(working_bike)
 		expect(bike_container.has_bikes?).to be true
