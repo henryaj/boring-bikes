@@ -13,10 +13,10 @@ describe 'a bike' do
 	let(:docking_station) {double :docking_station}
 
 	it 'can be broken' do
-		expect(bike.break!).to eq bike
+		expect(bike.break!).to be bike
 	end
 
-	it "starts off not broken (aka working!" do
+	it "starts off not broken (aka working!)" do
 		expect(bike.working?).to eq true
 	end
 
@@ -25,7 +25,7 @@ describe 'a bike' do
   end
 
   it "can be fixed when broken" do
-    expect(bike.break!.fix!).to eq bike
+    expect(bike.break!.fix!).to be bike
   end
 
 	it "is no longer broken when it is fixed" do
@@ -41,6 +41,22 @@ describe 'a bike' do
 		test_time  = Time.now
 		bike.set_time_bike_was_hired
 		expect(bike.time_bike_was_hired).to eq test_time
+	end
+
+	it "has a registration number" do
+		expect(bike.registration).to match(/^BB-\d{10}$/)
+	end
+
+	it 'has registration numbers that increment' do
+		start_reg = Bike.registration_counter
+		Bike.new
+		Bike.new
+		expect(Bike.registration_counter).to eq (start_reg + 2)
+	end
+
+	it 'knows how many bikes there are' do
+		p	Bike.count
+		p Bike.all_bikes
 	end
 
 	after do

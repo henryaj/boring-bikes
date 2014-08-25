@@ -3,10 +3,18 @@ require 'person'
 
 describe 'a person' do
 
-	let(:bike)             { double :bike, break!: :bike, set_time_bike_was_hired: Time.now, time_bike_was_hired: Time.local(1990, 3, 12, 14, 0, 0)}
-  let(:person)           { Person.new                                                  }
-  let(:person_with_bike) { Person.new(bike)                                            }
-  let(:docking_station)  { double :docking_station, release_bike: bike, dock_bike: nil }
+	let(:bike)             { double :bike,
+													break!: :bike,
+													set_time_bike_was_hired: Time.now,
+													time_bike_was_hired: Time.local(1990, 3, 12, 14, 0, 0)													}
+
+	let(:docking_station)  { double :docking_station,
+													release_bike: bike,
+													dock_bike: nil
+													}
+
+	let(:person)           { Person.new }
+	let(:person_with_bike) { Person.new bike }
 
 	it 'starts off without a bike' do
 		expect(person.has_bike?).to eq false
