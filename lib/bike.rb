@@ -1,5 +1,7 @@
 class Bike
 
+	attr_reader :registration_counter
+
 	@@registration_counter = 1000000000
 	@@all_bikes = []
 

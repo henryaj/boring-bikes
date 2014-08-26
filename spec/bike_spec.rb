@@ -55,8 +55,10 @@ describe 'a bike' do
 	end
 
 	it 'knows how many bikes there are' do
-		p	Bike.count
-		p Bike.all_bikes
+		start_count = Bike.count
+		Bike.new
+		Bike.new
+		expect(Bike.count).to eq(start_count + 2)
 	end
 
 	after do
