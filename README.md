@@ -3,6 +3,6 @@
 Boris Bikes
 ===========
 
-The Boris Bikes project created during weel 2 at Makers Academy.
+The Boris Bikes project created during week 2 at Makers Academy.
 
-Being rewritten using 'London Style' testing usind doubles.
+Being rewritten using 'London Style' testing using doubles.
