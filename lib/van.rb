@@ -1,11 +1,25 @@
 require 'bike_container'
 
 class Van
+
 	include BikeContainer
 
-	def collect_from(location)
-		@bikes = @bikes + location.dump_working_bikes
+	attr_reader :location
+
+	def initialize(options = {})
+		self.capacity = options.fetch(:capacity, capacity)
 	end
 
+	def go_to(location)
+		 @location = location
+	end
+
+	def get_bikes
+		dock(@location.release)
+	end
+
+	def release
+		@location.dock(bikes.pop)
+	end
 
 end

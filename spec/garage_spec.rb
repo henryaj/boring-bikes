@@ -1,29 +1,23 @@
 require 'garage'
 
 describe Garage do
-
-let(:garage) {Garage.new}
-let(:van) {double :van, dump_broken_bikes: nil}
-let(:bike) {double :bike, class: Bike, fix!: nil}
+	let(:bike) {Bike.new}
+	let(:garage) {Garage.new(:capacity => 12345)}
 
 
-	it_behaves_like 'a bike container'
-
-	it 'can receive a lot of broken bikes in one go' do
-		expect(van).to receive(:dump_broken_bikes).and_return([bike,bike,bike])
-		expect(garage.receive_bikes_from(van)).to be nil
+	it "should fix a bike when it accepts a bike" do
+		bike.break!
+		garage.accept(bike)
+		expect(bike).not_to be_broken
 	end
 
-	it "it can fix broken bikes" do
-		expect(bike).to receive(:fix!)
-		garage.dock_bike(bike)
-		garage.fix!
+	it "should have the capacity it is initialized with" do
+		expect(garage.capacity).to eq 12345
 	end
 
-	it 'fixes the bikes when they come in' do
-		allow(van).to receive(:dump_broken_bikes).and_return([bike,bike,bike])
-		expect(bike).to receive(:fix!).exactly(3).times
-		garage.receive_bikes_from(van)
+	it "should not be able to return a broken bike to a dock" do
+		bike.break!
+		garage.accept(bike)
 	end
 
 end

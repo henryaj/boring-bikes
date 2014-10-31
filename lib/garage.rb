@@ -4,14 +4,18 @@ class Garage
 
 	include BikeContainer
 
-def receive_bikes_from(van)
-	@bikes = @bikes + van.dump_broken_bikes
-	fix!
-	nil
-end
+	def initialize(options = {}) # Pass in options for Garage initialisation as an array
+		self.capacity = options.fetch(:capacity, capacity)
+	end
 
-def fix!
-	@bikes.each {|bike| bike.fix!}
-end
+	def accept(bike)
+		self.dock(bike)
+		fix_bikes
+	end
+
+	def fix_bikes
+		bikes
+		@bikes.each {|bike| bike.fix! }	
+	end
 
 end
