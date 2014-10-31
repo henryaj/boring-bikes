@@ -22,3 +22,43 @@ We're also obeying a few design principles, notably [SOLID](http://en.wikipedia.
 ## Pairing
 
 We used [hitch](https://github.com/therubymug/hitch) to make joint commits while pairing – hence the silly Gravatar!
+
+#### Tests
+
+```
+BikeContainer
+  should accept a bike
+  should accept a bike
+  Should release a bike
+  should know when it's full
+  should not accept a bike if it's full
+  should provide the list of available bikes
+  should only be able to pick up an object of class Bike
+
+Bike
+  should not be broken after we create it
+  should be able to break
+  should be able to get fixed
+
+DockingStation
+  should allow setting a specific capacity upon init
+
+Garage
+  should fix a bike when it accepts a bike
+  should have the capacity it is initialized with
+
+Van
+  when initialized
+    should have the capacity that it was set with
+    should not be able to access the 'dock' method directly
+    should be able to access the 'dock' method indirectly
+  travelling around
+    should end up at the docking station was sent to
+  at a docking station
+    should be able to tell the docking station to give it bikes
+    should be able to drop off a bike
+  at a garage
+    should only drop broken bikes
+
+20 examples, 0 failures
+```
