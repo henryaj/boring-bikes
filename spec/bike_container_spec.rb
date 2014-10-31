@@ -1,51 +1,76 @@
-require 'bike'
-require 'bike_container'
+shared_examples 'a bike container' do
 
-class ContainerHolder; include BikeContainer; end
+	let (:bike_container) { described_class.new }
+	let ( :broken_bike )  {
+													double :broken_bike,
+													working?: false,
+													class: Bike
+												}
+	let ( :working_bike ) {
+													double :working_bike,
+													working?: true,
+													class: Bike
+												}
 
-describe BikeContainer do
-
-	let(:bike) { Bike.new }
-	let(:holder) { ContainerHolder.new }
-
-	it "should accept a bike" do
-		expect(holder.bike_count).to eq(0)
-		holder.dock(bike)
-		expect(holder.bike_count).to eq(1)
+	def add_broken_and_working_bike
+		bike_container.dock_bike(broken_bike)
+		bike_container.dock_bike(working_bike)
 	end
 
-	def fill_holder (holder)
-		holder.capacity.times { holder.dock(bike) }
+	def add_broken_then_working_then_broken_bike
+		bike_container.dock_bike(broken_bike)
+		bike_container.dock_bike(working_bike)
+		bike_container.dock_bike(broken_bike)
 	end
 
-	it "should accept a bike" do
-		expect(holder.bike_count).to eq(0)
-		holder.dock(bike)
-		expect(holder.bike_count).to eq(1)
+	it "can dock a bike" do
+		bike_container.dock_bike(working_bike)
+		expect(bike_container.has_bikes?).to be true
 	end
 
-	it 'Should release a bike' do
-		holder.dock(bike)
-		holder.release
-		expect(holder.bike_count).to eq (0)
+	it 'knows if it has got available bikes (like, not broken)' do
+		bike_container.dock_bike(broken_bike)
+		expect(bike_container.available?).to be false
 	end
 
-	it "should know when it's full" do
-		expect(holder).not_to be_full
-		fill_holder holder
-		expect(holder).to be_full
+  it 'knows that avaiable bikes are working ones' do
+		add_broken_and_working_bike
+		expect(bike_container.available?).to be true
 	end
 
-	it "should not accept a bike if it's full" do
-		fill_holder holder
-		expect { holder.dock(bike) }.to raise_error(RuntimeError)
+	it 'will release a broken bike' do
+		add_broken_and_working_bike
+    expect(bike_container.release_broken_bike).to be broken_bike
 	end
 
-	it "should provide the list of available bikes" do
-		working_bike, broken_bike = Bike.new, Bike.new
-		broken_bike.break!
-		holder.dock(working_bike)
-		holder.dock(broken_bike)
-		expect(holder.available_bikes). to eq([working_bike])
+	it 'will release a working bike' do
+		add_broken_and_working_bike
+    expect(bike_container.release_working_bike).to be working_bike
+	end
+
+	it 'will dump all its broken bikes when asked' do
+		add_broken_then_working_then_broken_bike
+		expect(bike_container.dump_broken_bikes).to eq [broken_bike, broken_bike]
+	end
+
+	it 'will be able to dump working bikes when asked' do
+		add_broken_then_working_then_broken_bike
+		expect(bike_container.dump_working_bikes).to eq [working_bike]
+	end
+
+	it 'will only have broken bikes when working bikes are dumped' do
+		add_broken_then_working_then_broken_bike
+		bike_container.dump_working_bikes
+		expect(bike_container.available?).to be false
+	end
+
+	it 'will only have working bikes when broken bikes are dumped' do
+		add_broken_then_working_then_broken_bike
+		bike_container.dump_broken_bikes
+		expect(bike_container.available?).to be true
+	end
+
+	it 'raises an error when a something that is not a bike is added' do
+		expect{bike_container.dock_bike(42)}.to raise_error(ArgumentError, "Can only dock bikes")
 	end
 end
